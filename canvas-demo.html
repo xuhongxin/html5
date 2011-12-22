@@ -1,0 +1,18 @@
+ <canvas id="canvas" width="300" height="200"> 
+ Fallback content, in case the browser does not support Canvas. 
+ </canvas> 
+
+<script type="text/javascript">
+	 function drawRect(){ 
+	 var canvas = document.getElementById('canvas'); 
+	 if (canvas.getContext){ 
+	 var ctx = canvas.getContext('2d');  // 获取 2D 渲染上下文
+			
+	 ctx.clearRect(0,0,300,200)  ;// 清除以（0,0）为左上坐标原点，300*200 矩形区域内所有像素
+	 ctx.fillStyle = '#00f';   // 设置矩形的填充属性，#00f 代表蓝色
+	 ctx.strokeStyle = '#f00';  // 设置矩形的线条颜色，#f00 代表红色
+	 ctx.fillRect(50,25,150,80); // 使用 fillStyle 填充一个 150*80 大小的矩形
+	 ctx.strokeRect(45,20, 160, 90);  // 以 strokeStype 属性为边的颜色绘制一个无填充矩形
+		 } 
+	 }
+</script>
