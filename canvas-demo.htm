@@ -2,12 +2,15 @@
 Fallback Content:The browser didn't support canvas
 </canvas>
 
-<input type="button" value="Button 3" id="btn3"  onclick="drawRect();"/>
-<input type="button" value="Button 2" id="btn3"  onclick="draw();"/>
+<!-- 指定button调用时的方法 -->
+<input type="button" value="Button 1" id="btn1"  onclick="drawRect();"/>
+<input type="button" value="Button 2" id="btn2"  onclick="draw();"/>
+<input type="button" value="Button 3" id="btn3"  onclick="drawCycle();"/>
 
 
 
 <script type="text/javascript">
+	// 绘制矩形图案	
 	 function drawRect(){ 
 			 var canvas = document.getElementById('canvas'); 
 			 if (canvas.getContext){ 
@@ -20,14 +23,41 @@ Fallback Content:The browser didn't support canvas
 		 } 
 	 }
 	 
+	// 绘制封闭的半圆形图案
 	 function draw(){
 		var canvas = document.getElementById('canvas');
 		if(canvas.getContext){
 			var ctx = canvas.getContext('2d');
-			ctx.arc(175,175,30,0,Math.PI,false);
+			ctx.beginPath();
+			ctx.arc(60,175,30,0,Math.PI,false);
 			ctx.closePath();
 			ctx.fill();
 			ctx.stroke();
 		}
 	 }
+	 
+	// 采用旋转/平移绘制位图
+	function drawCycle(){
+		var canvas = document.getElementById('canvas');
+		if(canvas.getContext){
+			var ctx = canvas.getContext('2d');
+			ctx.translate(150,150);//将原点从(0,0)以至（150,150）
+			
+			for(i=1;i<=2;i++){ // 绘制内外两层
+			
+				if(i%2==1){ ctx.fillStyle='#00f'; } // 对这两层分别采用不同的颜色填充
+				else{ ctx.fillStyle='#f00'; }
+				
+				ctx.save(); // 保存状态。
+				
+				for(j=1;j<=i*6;j++){
+					ctx.rotate(Math.PI/(3*i));
+					ctx.beginPath();
+					ctx.arc(0,20*i,5,0,Math.PI*2,true);
+					ctx.fill();
+				}
+				ctx.restore();
+			}
+		}
+	}
 </script>
